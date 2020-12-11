@@ -3,9 +3,13 @@ import unittest
 from importlib.util import spec_from_loader, module_from_spec
 from importlib.machinery import SourceFileLoader
 
-spec = spec_from_loader("base64url", SourceFileLoader("base64url", "./base64url"))
+spec = spec_from_loader(
+    "base64url",
+    SourceFileLoader("base64url", "./base64url")
+)
 base64url = module_from_spec(spec)
 spec.loader.exec_module(base64url)
+
 
 class TestBase64URL(unittest.TestCase):
     def test_decode(self):
@@ -21,7 +25,9 @@ class TestBase64URL(unittest.TestCase):
         self.assertEqual(base64url.encode(b'Hello world'), 'SGVsbG8gd29ybGQ=')
 
     def test_encode_trimmed(self):
-        self.assertEqual(base64url.encode(b'Hello world', trim=True), 'SGVsbG8gd29ybGQ')
+        self.assertEqual(
+            base64url.encode(b'Hello world', trim=True), 'SGVsbG8gd29ybGQ')
+
 
 if __name__ == "__main__":
     unittest.main()

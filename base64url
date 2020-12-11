@@ -6,6 +6,7 @@ import sys
 
 DEFAULT_IO = '-'
 
+
 def decode(s: str) -> bytes:
     """
     Decode bytes using the URL- and filesystem-safe Base64 alphabet.
@@ -25,6 +26,7 @@ def decode(s: str) -> bytes:
         s += ('=' * ((4 - (slen % 4) % 4)))
     return base64.urlsafe_b64decode(s)
 
+
 def encode(b: bytes, trim: bool = False, break_at: int = 0) -> str:
     encoded_string = base64.urlsafe_b64encode(b).decode('utf-8')
     if trim:
@@ -34,7 +36,7 @@ def encode(b: bytes, trim: bool = False, break_at: int = 0) -> str:
         i = 0
         result = ''
         while i < len(encoded_string):
-            result += encoded_string[i:i+break_at] + '\n'
+            result += encoded_string[i:i + break_at] + '\n'
             i += break_at
         return result
     else:
@@ -43,11 +45,21 @@ def encode(b: bytes, trim: bool = False, break_at: int = 0) -> str:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument( '-b', '--breakat', type=int, help='break encoded string into num character lines')
-    parser.add_argument('-t', '--trim', action='store_true', help='trim padding on encoded string')
-    parser.add_argument('-d', '-D', '--decode', action='store_true', help='decodes input')
-    parser.add_argument('-i', '--input', default=DEFAULT_IO, help='input fule (default: stdin')
-    parser.add_argument('-o', '--output', default=DEFAULT_IO, help='output fule (default: stdout')
+    parser.add_argument('-b', '--breakat',
+        type=int,
+        help='break encoded string into num character lines')
+    parser.add_argument('-t', '--trim',
+        action='store_true',
+        help='trim padding on encoded string')
+    parser.add_argument('-d', '-D', '--decode',
+        action='store_true',
+        help='decodes input')
+    parser.add_argument('-i', '--input',
+        default=DEFAULT_IO,
+        help='input fule (default: stdin)')
+    parser.add_argument('-o', '--output',
+        default=DEFAULT_IO,
+        help='output file (default: stdout)')
     args = parser.parse_args()
 
     if args.decode:
