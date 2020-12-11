@@ -3,8 +3,10 @@
 A command-line tool for encoding and decoding using the Base64 URL encoding
 scheme.
 
+Requires Python 3. Tested on Python 3.4 and above.
+
 ```
-$ ./base64url.py -h
+$ ./base64url -h
 usage: base64url.py [-h] [-b BREAKAT] [-t] [-d] [-i INPUT] [-o OUTPUT]
 
 optional arguments:
