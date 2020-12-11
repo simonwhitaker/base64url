@@ -19,12 +19,6 @@ def decode(s: str) -> bytes:
     padding check.
 
     The alphabet uses '-' instead of '+' and '_' instead of '/'.
-
-    >>> decode('Zm9vLWJhcg==')
-    b'foo-bar'
-
-    >>> decode('Zm9vLWJhcg')
-    b'foo-bar'
     """
     slen = len([b for b in s if b.isalnum()])
     if slen % 4 != 0:
