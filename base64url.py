@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+
+import argparse
+import base64
+import sys
+
+DEFAULT_IO = '-'
+
+def decode(s: str) -> bytes:
+    """
+    Decode bytes using the URL- and filesystem-safe Base64 alphabet.
+
+    Unlike base64.urlsafe_b64decode, this function accepts encoded content that
+    is missing trailing pad characters ('=').
+
+    Argument s is a bytes-like object or ASCII string to decode. The result is
+    returned as a bytes object. Characters that are not in the URL-safe base-64
+    alphabet, and are not a plus '+' or slash '/', are discarded prior to the
+    padding check.
+
+    The alphabet uses '-' instead of '+' and '_' instead of '/'.
+
+    >>> decode('Zm9vLWJhcg==')
+    b'foo-bar'
+
+    >>> decode('Zm9vLWJhcg')
+    b'foo-bar'
+    """
+    slen = len([b for b in s if b.isalnum()])
+    if slen % 4 != 0:
+        s += ('=' * ((4 - (slen % 4) % 4)))
+    return base64.urlsafe_b64decode(s)
+
+def encode(b: bytes, trim: bool = False, break_at: int = 0) -> str:
+    encoded_string = base64.urlsafe_b64encode(b).decode('utf-8')
+    if trim:
+        encoded_string = encoded_string.rstrip('=')
+
+    if break_at > 0:
+        i = 0
+        result = ''
+        while i < len(encoded_string):
+            result += encoded_string[i:i+break_at] + '\n'
+            i += break_at
+        return result
+    else:
+        return encoded_string
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument( '-b', '--breakat', type=int, help='break encoded string into num character lines')
+    parser.add_argument('-t', '--trim', action='store_true', help='trim padding on encoded string')
+    parser.add_argument('-d', '-D', '--decode', action='store_true', help='decodes input')
+    parser.add_argument('-i', '--input', default=DEFAULT_IO, help='input fule (default: stdin')
+    parser.add_argument('-o', '--output', default=DEFAULT_IO, help='output fule (default: stdout')
+    args = parser.parse_args()
+
+    if args.decode:
+        if args.input == DEFAULT_IO:
+            input = sys.stdin
+        else:
+            input = open(args.input)
+
+        if args.output == DEFAULT_IO:
+            output = sys.stdout.buffer
+        else:
+            output = open(args.output, 'wb')
+
+        encoded_string = input.read()
+        output.write(decode(encoded_string))
+    else:
+        if args.input == DEFAULT_IO:
+            input = sys.stdin.buffer
+        else:
+            input = open(args.input, 'rb')
+
+        if args.output == DEFAULT_IO:
+            output = sys.stdout
+        else:
+            output = open(args.output, 'w')
+
+        data = input.read()
+        output.write(encode(data, args.trim, args.breakat))
