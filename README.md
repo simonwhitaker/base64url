@@ -16,9 +16,9 @@ optional arguments:
   -t, --trim            trim padding on encoded string
   -d, -D, --decode      decodes input
   -i INPUT, --input INPUT
-                        input fule (default: stdin
+                        input file (default: stdin)
   -o OUTPUT, --output OUTPUT
-                        output fule (default: stdout
+                        output file (default: stdout)
 ```
 
 ## Installation

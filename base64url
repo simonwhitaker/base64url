@@ -56,7 +56,7 @@ if __name__ == '__main__':
         help='decodes input')
     parser.add_argument('-i', '--input',
         default=DEFAULT_IO,
-        help='input fule (default: stdin)')
+        help='input file (default: stdin)')
     parser.add_argument('-o', '--output',
         default=DEFAULT_IO,
         help='output file (default: stdout)')
