@@ -22,8 +22,13 @@ def decode(s: str) -> bytes:
     The alphabet uses '-' instead of '+' and '_' instead of '/'.
     """
     slen = len([b for b in s if b.isalnum()])
+
+    # base64.urlsafe_b64decode expects base64-encoded content to be padded. If
+    # the encoded string's length isn't a multiple of 4, pad with = until it
+    # is.
     if slen % 4 != 0:
         s += ('=' * ((4 - (slen % 4) % 4)))
+
     return base64.urlsafe_b64decode(s)
 
 
