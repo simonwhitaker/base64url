@@ -52,6 +52,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--breakat',
         type=int,
+        default=0,
         help='break encoded string into num character lines')
     parser.add_argument('-t', '--trim',
         action='store_true',
