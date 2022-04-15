@@ -27,3 +27,17 @@ optional arguments:
 Python 3.4 or above. Just run it as `path/to/base64url`.
 
 Of course, you can if you wish add it to your PATH.
+
+## Using with Docker
+
+To encode, pipe to:
+
+```
+docker run -i --rm simonwhitaker/base64url
+```
+
+To decode, pipe to:
+
+```
+docker run -i --rm simonwhitaker/base64url -d
+```
