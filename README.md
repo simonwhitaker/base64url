@@ -24,7 +24,7 @@ optional arguments:
 ## Installation
 
 `base64url` doesn't have to be installed; it has no dependencies other than
-Python 3.4 or above. Just run it as `path/to/base64url`.
+Python 3.6 or above. Just run it as `path/to/base64url`.
 
 Of course, you can if you wish add it to your PATH.
 
