@@ -27,7 +27,7 @@ def decode(s: str) -> bytes:
     # is.
     slen = len([b for b in s if b.isalnum()])
     if slen % 4 != 0:
-        s += "=" * ((4 - (slen % 4) % 4))
+        s += "=" * (4 - (slen % 4) % 4)
 
     return base64.urlsafe_b64decode(s)
 
